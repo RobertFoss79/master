@@ -14,12 +14,9 @@ def main():
 
 
 def convert_to_minutes(year: int, month: int, day: int):
-    try:
-        today: date = date.today()
+    today: date = date.today()
 
-        diff: timedelta = today - date(year, month, day)
-    except ValueError:
-        sys.exit("Invalid Date")
+    diff: timedelta = today - date(year, month, day)
 
     minutes: int = diff.days * 24 * 60
 

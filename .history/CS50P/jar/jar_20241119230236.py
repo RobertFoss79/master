@@ -9,14 +9,14 @@ class Jar:
         return "🍪" * self.size
 
     def deposit(self, number: int):
-        if number > self.capacity or number + self.size > self.capacity:
+        if number + self.size > self.capacity:
             raise ValueError
-        self._size += number
+        self.size += number
 
-    def withdraw(self, number: int):
+    def withdraw(self, number):
         if number > self.size:
             raise ValueError
-        self._size -= number
+        self.size -= number
 
     @property
     def capacity(self):
@@ -28,7 +28,6 @@ class Jar:
     
 def main():
     jar = Jar()
-    jar.deposit(6)
     jar.withdraw(4)
     jar.deposit(8)
     print(jar.capacity)
