@@ -45,7 +45,7 @@ def collect_expenses():
             rent = expenses.Rent()
             amount, date = rent.input_expense()
             expense_data["rent"] = {"amount": amount, "date": date}
-        elif expense_type == "power_gas":
+        elif (expense_type == "power_gas" or expense_type == "power gas"):
             power_gas = expenses.PowerGas()
             amount, date = power_gas.input_expense()
             expense_data["power_gas"] = {"amount": amount, "date": date}
