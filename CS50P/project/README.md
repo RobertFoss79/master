@@ -1,5 +1,5 @@
 # Everyday Household Budget
-#### Video Demo:  <URL HERE>
+#### Video Demo:  https://youtu.be/QWyWaeve0UI
 #### Description:
 I have never been happy with any app that I have tried for keeping track of my personal budgeting needs. They either don’t have the diversity of categories for income and expenses, or they are just so complicated that it is more of a headache than it is worth using. This project is a basic budgeting application with the categories that I want to see with the ease of use that anyone can figure out with very little explanation. This application allows users to enter their income and expenses, save this data to a file, and load it when needed. The application is implemented in Python and is designed to be user-friendly with interactive prompts from the command line. 
 It will be a continual work in progress. I intend to add more categories and functionality to it. Eventually you will be able to see charts and graphs showing your income and expenses. I will learn the Tkinter library to create a gui to make it truly user friendly. And eventually I plan to learn Flask and Django and turn it into a web application. It will be a true friendly budgeting app for the everyday person.
