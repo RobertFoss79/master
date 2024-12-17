@@ -7,8 +7,8 @@ import os
 def ask_for_file_path(prompt):
     file_path = input(prompt).strip()
     if not file_path:
-        home_dir = os.path.expanduser("~")  # Get the home directory
-        file_path = os.path.join(home_dir, "budget_data.csv")  # Default path
+        home_dir = os.path.expanduser("~")
+        file_path = os.path.join(home_dir, "budget_data.csv")
     return file_path
 
 
@@ -113,7 +113,6 @@ def main():
     else:
         print("Starting a new budget.")
 
-    # Initialize total income and expenses
     total_income = sum(value["amount"] for key, value in budget_data.items() if "income" in key)
     total_expenses = sum(value["amount"] for key, value in budget_data.items() if "expense" in key)
 
@@ -136,7 +135,6 @@ def main():
     print(f"Total Expenses: ${total_expenses:.2f}")
     print(f"Net Balance: ${total_income - total_expenses:.2f}")
 
-    # Save the budget data to a file
     file_path = ask_for_file_path("Enter the path to save the budget data file (e.g., data/budget_data.csv): ")
     utils.save_to_file(budget_data, file_path)
 

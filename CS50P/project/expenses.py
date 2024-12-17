@@ -38,9 +38,6 @@ class RentExpense(Expense):
 class PhoneExpense(Expense):
     pass
 
-# Additional expense categories can be added similarly
-
-
 class Rent(Expense):
     pass
 
