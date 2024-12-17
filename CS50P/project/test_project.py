@@ -3,39 +3,49 @@ import project
 import income
 import expenses
 import utils
+import os
+from datetime import datetime
 
 @pytest.fixture
 def sample_data():
     return {
-        'payroll_income': 1000.0,
-        'other_income': 200.0,
-        'rent': 800.0,
-        'power_gas': 150.0,
-        'groceries': 300.0
+        'payroll_income': {'amount': 1000.0, 'date': '2024-12-17'},
+        'other_income': {'amount': 200.0, 'date': '2024-12-17'},
+        'rent': {'amount': 800.0, 'date': '2024-12-17'},
+        'power_gas': {'amount': 150.0, 'date': '2024-12-17'},
+        'groceries': {'amount': 300.0, 'date': '2024-12-17'}
     }
+
 
 # Tests for project.py functions
 def test_collect_income(monkeypatch):
-    monkeypatch.setattr('builtins.input', lambda _: '1000')
-    payroll_income = income.input_payroll_income()
-    assert payroll_income == 1000.0
-    
-    monkeypatch.setattr('builtins.input', lambda _: '200')
-    other_income = income.input_other_income()
-    assert other_income == 200.0
+    # Mock input for payroll income amount and date
+    inputs = iter(['1000', ''])  # Empty string for default date
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    payroll_income = income.PayrollIncome().input_income()
+    expected_date = datetime.now().strftime("%Y-%m-%d")
+    assert payroll_income == (1000.0, expected_date)
+
+    # Mock input for other income amount and date
+    inputs = iter(['200', ''])  # Empty string for default date
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    other_income = income.OtherIncome().input_income()
+    assert other_income == (200.0, expected_date)
 
 def test_collect_expenses(monkeypatch):
-    monkeypatch.setattr('builtins.input', lambda _: '800')
-    rent = expenses.input_rent()
-    assert rent == 800.0
-    
-    monkeypatch.setattr('builtins.input', lambda _: '150')
-    power_gas = expenses.input_power_gas()
-    assert power_gas == 150.0
+    # Mock input for rent expense amount and date
+    inputs = iter(['850.62', ''])  # Empty string for default date
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    rent_expense = expenses.RentExpense().input_expense()
+    expected_date = datetime.now().strftime("%Y-%m-%d")
+    assert rent_expense == (850.62, expected_date)
 
-    monkeypatch.setattr('builtins.input', lambda _: '300')
-    groceries = expenses.input_groceries()
-    assert groceries == 300.0
+    # Mock input for phone expense amount and date
+    inputs = iter(['63.54', ''])  # Empty string for default date
+    monkeypatch.setattr('builtins.input', lambda _: next(inputs))
+    phone_expense = expenses.PhoneExpense().input_expense()
+    assert phone_expense == (63.54, expected_date)
+
 
 # Tests for utils.py functions
 def test_save_to_file(sample_data):

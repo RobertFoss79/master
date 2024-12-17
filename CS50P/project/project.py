@@ -1,10 +1,15 @@
 import income
 import expenses
 import utils
+import os
 
 
-def ask_for_file_path(prompt_message):
-    return input(prompt_message)
+def ask_for_file_path(prompt):
+    file_path = input(prompt).strip()
+    if not file_path:
+        home_dir = os.path.expanduser("~")  # Get the home directory
+        file_path = os.path.join(home_dir, "budget_data.csv")  # Default path
+    return file_path
 
 
 def collect_income():
@@ -45,7 +50,7 @@ def collect_expenses():
             rent = expenses.Rent()
             amount, date = rent.input_expense()
             expense_data["rent"] = {"amount": amount, "date": date}
-        elif (expense_type == "power_gas" or expense_type == "power gas"):
+        elif expense_type == "power_gas" or expense_type == "power gas":
             power_gas = expenses.PowerGas()
             amount, date = power_gas.input_expense()
             expense_data["power_gas"] = {"amount": amount, "date": date}
@@ -96,12 +101,8 @@ def collect_expenses():
 def main():
     budget_data = {}
 
-    load_existing = (
-        input("Do you want to load existing budget data? (yes/no): ").strip().lower()
-    )
-    file_path = ask_for_file_path(
-        "Enter the path to the budget data file (e.g., data/budget_data.csv): "
-    )
+    load_existing = input("Do you want to load existing budget data? (yes/no): ").strip().lower()
+    file_path = ask_for_file_path("Enter the path to the budget data file (e.g., data/budget_data.csv): ")
 
     if load_existing == "yes":
         budget_data = utils.load_from_file(file_path)
@@ -113,19 +114,11 @@ def main():
         print("Starting a new budget.")
 
     # Initialize total income and expenses
-    total_income = sum(
-        value["amount"] for key, value in budget_data.items() if "income" in key
-    )
-    total_expenses = sum(
-        value["amount"] for key, value in budget_data.items() if "expense" in key
-    )
+    total_income = sum(value["amount"] for key, value in budget_data.items() if "income" in key)
+    total_expenses = sum(value["amount"] for key, value in budget_data.items() if "expense" in key)
 
     while True:
-        entry_type = (
-            input("What would you like to enter? (income/expense/done): ")
-            .strip()
-            .lower()
-        )
+        entry_type = input("What would you like to enter? (income/expense/done): ").strip().lower()
         if entry_type == "income":
             income_data = collect_income()
             budget_data.update(income_data)
@@ -133,9 +126,7 @@ def main():
         elif entry_type == "expense":
             expense_data = collect_expenses()
             budget_data.update(expense_data)
-            total_expenses += sum(
-                value["amount"] for key, value in expense_data.items()
-            )
+            total_expenses += sum(value["amount"] for key, value in expense_data.items())
         elif entry_type == "done":
             break
         else:
@@ -145,8 +136,9 @@ def main():
     print(f"Total Expenses: ${total_expenses:.2f}")
     print(f"Net Balance: ${total_income - total_expenses:.2f}")
 
+    # Save the budget data to a file
+    file_path = ask_for_file_path("Enter the path to save the budget data file (e.g., data/budget_data.csv): ")
     utils.save_to_file(budget_data, file_path)
-    print(f"Budget data saved to {file_path}")
 
 
 if __name__ == "__main__":
