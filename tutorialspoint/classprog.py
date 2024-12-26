@@ -1,5 +1,6 @@
 # Class Program
 
+
 class Greet:
 
     # Class attribute, protected with the underscore before the attribut/method
@@ -15,7 +16,7 @@ class Greet:
 
 # Creating a local object and instantiating a class object
 wish = Greet()
-# Accessing the private method using name mangling
+# Accessing the private method using name mangling by putting single underscore, class name, double underscore, method/attribute name
 wish._Greet__greet_user()
 wish.hello()
 
