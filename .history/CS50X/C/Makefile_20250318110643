@@ -1,0 +1,11 @@
+CC = clang
+CFLAGS = -lcs50
+EXECUTABLES = $(patsubst %.c,%,$(wildcard *.c))
+
+all = $(EXECUTABLES)
+
+%: %.c
+	$(CC) %< -o %@ $(CFLAGS)
+
+clean:
+	rm -f $(EXECUTABLES)
