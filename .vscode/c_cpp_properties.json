@@ -5,7 +5,8 @@
             "includePath": [
                 "/usr/include",
                 "/usr/local/include",
-                "/home/robertfoss/Documents/Master/CS50X/C"
+                "/home/robertfoss/Documents/Master/CS50X/C",
+                "${workspaceFolder}/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
