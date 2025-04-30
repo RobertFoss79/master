@@ -1,9 +1,10 @@
-#include <cs50.h>
 #include <stdio.h>
 
 int main(void)
 {
-    char c = get_char("Do you agree? ");
+    char c;
+    printf("Do you agree? ");
+    scanf(" %c", &c); // Read a single character, skipping leading whitespace
     if (c == 'y' || c == 'Y')
     {
         printf("Agreed.\n");

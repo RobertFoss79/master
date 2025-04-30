@@ -1,10 +1,23 @@
-#include <cs50.h>
 #include <stdio.h>
 
-int main (void)
+int main(void)
 {
-    int x = get_int("What's x? ");
-    int y = get_int("What's y> ");
+    int x, y;
+    printf("What's x? ");
+    while (scanf("%d", &x) != 1) // Ensure valid integer input for x
+    {
+        while (getchar() != '\n')
+            ; // Clear invalid input
+        printf("Invalid input. What's x? ");
+    }
+
+    printf("What's y? ");
+    while (scanf("%d", &y) != 1) // Ensure valid integer input for y
+    {
+        while (getchar() != '\n')
+            ; // Clear invalid input
+        printf("Invalid input. What's y? ");
+    }
 
     if (x < y)
     {
@@ -16,7 +29,6 @@ int main (void)
     }
     else
     {
-        printf("X is equsl to y\n");
+        printf("X is equal to y\n");
     }
-
 }
