@@ -17,6 +17,7 @@ while True:
             total = sum(nums)
             if total == x:
                 print(f"{x} is a perfect number")
+                print(f"The divisors of {x} are: {sorted(nums)}")
             else:
                 print(f"{x} is not a perfect number")
             again = input("Do you want to play again? (yes/no): ").strip().lower()
